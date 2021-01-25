@@ -1,0 +1,49 @@
+﻿@model PruebaCamiloBautista.Presentacion.Models.Libros
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<h1>Editar</h1>
+
+@using (Html.BeginForm("EditSave", "MaestroDetalle", FormMethod.Post))
+{
+    <div class="row ">
+        <div class="form-group d-flex flex-column">
+            @Html.LabelFor(d => d.Titulo)
+            @Html.TextBoxFor(d => d.Titulo, new { value = ViewBag.titulo })
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group d-flex flex-column">
+            @Html.LabelFor(d => d.N_paginas)
+            @Html.TextBoxFor(d => d.N_paginas, new { value = ViewBag.npaginas })
+            <span asp-validation-for="N_paginas" class="text-danger"></span>
+        </div>
+        <div class="form-group d-flex flex-column">
+            @Html.LabelFor(d => d.Isbn)
+            @Html.TextBoxFor(d => d.Isbn, new { value = ViewBag.isbn })
+            <span asp-validation-for="Isbn" class="text-danger"></span>
+        </div>
+
+        <div class="form-group d-flex flex-column">
+            @Html.LabelFor(d => d.Editoriales_Id)
+            @Html.DropDownListFor(d => d.Editoriales_Id, new SelectList(ViewBag.listofItems, "Id", "Nombre"))
+        </div>
+    </div>
+    <div class="row ">
+        <div class="form-group d-flex flex-column">
+            @Html.LabelFor(d => d.Sinopsis)
+            @Html.TextBoxFor(d => d.Sinopsis)
+            <span asp-validation-for="Sinopsis" class="text-danger"></span>
+        </div>
+        <div style="display:none">
+            @Html.TextBoxFor(d => d.Id)
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group d-flex flex-column">
+            <input type="submit" class="btn btn-info" value="Editar" />
+        </div>
+    </div>
+    <br>
+    <div class="row"> @Html.ActionLink("Regresar", "Index", "MaestroDetalle")</div>
+}

@@ -1,0 +1,97 @@
+﻿@model PruebaCamiloBautista.Presentacion.Models.Libros
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Maestro Detalle Libros</h1>
+
+<div class="row" style="color:#4cff00">
+    @ViewBag.Message
+</div>
+@using (Html.BeginForm("Add", "MaestroDetalle", FormMethod.Post))
+{
+<div class="row ">
+    <div class="form-group d-flex flex-column">
+        @Html.LabelFor(d => d.Titulo)
+        @Html.TextBoxFor(d => d.Titulo)
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group d-flex flex-column">
+        @Html.LabelFor(d => d.N_paginas)
+        @Html.TextBoxFor(d => d.N_paginas)
+        <span asp-validation-for="N_paginas" class="text-danger"></span>
+    </div>
+    <div class="form-group d-flex flex-column">
+        @Html.LabelFor(d => d.Isbn)
+        @Html.TextBoxFor(d => d.Isbn)
+        <span asp-validation-for="Isbn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group d-flex flex-column">
+        @Html.LabelFor(d => d.Editoriales_Id)
+        @Html.DropDownListFor(d => d.Editoriales_Id, new SelectList(ViewBag.listofItems, "Id", "Nombre"))
+    </div>
+</div>
+<div class="row ">
+    <div class="form-group d-flex flex-column">
+        @Html.LabelFor(d => d.Sinopsis)
+        @Html.TextBoxFor(d => d.Sinopsis)
+        <span asp-validation-for="Sinopsis" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group d-flex flex-column">
+        <input type="submit" class="btn btn-info" value="Guardar" />
+    </div>
+</div>
+ 
+
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Título</th>
+                            <th>Sinopsis</th>
+                            <th>N_Paginas</th>
+                            <th>Editorial</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.listLibros)
+                        {
+                        <tr>
+                            <td>
+                                @item.Titulo
+                            </td>
+                            <td style="max-width:300px">
+                                @item.Sinopsis
+                            </td>
+                            <td>
+                                @item.NPaginas
+                            </td>
+                            <td>
+                                @item.Editoriales.Nombre
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "MaestroDetalle", new { id = item.Id, titulo = item.Titulo, sinopsis = item.Sinopsis, npaginas = item.NPaginas, isbn = item.Isbn, editorialesid = item.EditorialesId })|
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
